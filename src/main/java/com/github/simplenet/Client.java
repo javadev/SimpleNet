@@ -34,7 +34,7 @@ import com.github.simplenet.utility.exposed.cryptography.CryptographicFunction;
 import com.github.simplenet.utility.exposed.data.*;
 //import java.nio.channels.AsynchronousChannelGroup;
 import java.nio.channels.AsynchronousSocketChannel;
-import java.nio.channels.Channel;
+//import java.nio.channels.Channel;
 import nio2.ssl.SSLAsynchronousChannelGroup;
 import nio2.ssl.SSLAsynchronousSocketChannel;
 import org.slf4j.Logger;
@@ -423,7 +423,7 @@ public class Client extends AbstractReceiver<Runnable> implements Channeled<SSLA
         }
 
         try {
-            channel.connect(new InetSocketAddress(address, port), null, null).get(timeout, unit);
+            channel.connect(new InetSocketAddress(address, port)).get(timeout, unit);
         } catch (AlreadyConnectedException e) {
             throw new IllegalStateException("This client is already connected to a server!", e);
         } catch (Exception e) {

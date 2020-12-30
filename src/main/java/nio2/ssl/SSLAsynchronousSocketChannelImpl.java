@@ -28,19 +28,13 @@
 package nio2.ssl;
 
 import java.io.EOFException;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.net.SocketOption;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
-import java.nio.channels.AlreadyConnectedException;
-import java.nio.channels.CompletionHandler;
-import java.nio.channels.ConnectionPendingException;
-import java.nio.channels.InterruptedByTimeoutException;
-import java.nio.channels.NotYetConnectedException;
-import java.nio.channels.ReadPendingException;
-import java.nio.channels.ShutdownChannelGroupException;
-import java.nio.channels.UnresolvedAddressException;
-import java.nio.channels.UnsupportedAddressTypeException;
-import java.nio.channels.WritePendingException;
+import java.nio.channels.*;
 import java.util.concurrent.TimeUnit;
 import java.util.LinkedList;
 import javax.naming.OperationNotSupportedException;
@@ -253,7 +247,6 @@ public class SSLAsynchronousSocketChannelImpl extends SSLAsynchronousSocketChann
         }
     }
 
-
     // Internal write handler for SSL connections. If all data from the user's
     // source buffer are written to the channel (in encrypted form), the user's
     // write handler method completed resp. failed is invoked.
@@ -362,10 +355,10 @@ public class SSLAsynchronousSocketChannelImpl extends SSLAsynchronousSocketChann
                          final TimeUnit unit,
                          final A attachement,
                          final CompletionHandler<Integer, ? super A> handler)
-                    throws IllegalArgumentException,
-                           NotYetConnectedException,
-                           ReadPendingException,
-                           ShutdownChannelGroupException {
+            throws IllegalArgumentException,
+            NotYetConnectedException,
+            ReadPendingException,
+            ShutdownChannelGroupException {
 
         logger.trace("start {}", this);
 
@@ -626,6 +619,11 @@ public class SSLAsynchronousSocketChannelImpl extends SSLAsynchronousSocketChann
                 }
             }
         );
+    }
+
+    @Override
+    public <T> AsynchronousSocketChannel setOption(SocketOption<T> name, T value) throws IOException {
+        return null;
     }
 
 }

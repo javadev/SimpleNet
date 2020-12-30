@@ -498,7 +498,7 @@ public abstract class SSLAsynchronousSocketChannel implements AsynchronousChanne
      *         If the channel group has terminated
     */
 
-    public abstract <A> void read(final Buffer dst,
+    public abstract <A> void read(final ByteBuffer dst,
                          final long timeout,
                          final TimeUnit unit,
                          final A attachement,
